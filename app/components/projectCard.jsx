@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { ExternalLink, Github, Info } from "lucide-react";
+import Link from "next/link";
 
 const ProjectCard = ({ project }) => {
   const router = useRouter();
@@ -36,24 +37,24 @@ const ProjectCard = ({ project }) => {
         {/* Links */}
         <div className="flex gap-3 mb-4">
           {project.liveLink && (
-            <a
+            <Link
               href={project.liveLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 px-3 py-1 text-sm font-medium bg-[#ffbd59] text-[#4b1662] rounded-full hover:bg-yellow-400 transition-colors"
             >
               <ExternalLink size={16} /> Demo
-            </a>
+            </Link>
           )}
           {project.githubLink && (
-            <a
+            <Link
               href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 px-3 py-1 text-sm font-medium bg-[#ffbd59] text-[#4b1662] rounded-full hover:bg-yellow-400 transition-colors"
             >
               <Github size={16} /> Code
-            </a>
+            </Link>
           )}
         </div>
 

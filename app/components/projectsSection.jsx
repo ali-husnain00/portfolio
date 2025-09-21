@@ -74,7 +74,7 @@ export const projectsData = [
     developer: "Ali Husnain",
     image: "/project8.png",
     githubLink: "https://github.com/ali-husnain00/Movies-Application",
-    liveLink: "ghost-movies-app.vercel.app",
+    liveLink: "https://ghost-movies-app.vercel.app",
     category: "Frontend",
   },
   {
