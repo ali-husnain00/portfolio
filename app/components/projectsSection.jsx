@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import ProjectCard from "./projectCard";
 
@@ -90,66 +90,336 @@ export const projectsData = [
   },
 ];
 
-
 const categories = ["All", "Frontend", "Backend", "Fullstack"];
 
 const ProjectsSection = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
 
-    const router = useRouter();
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const filteredProjects =
     activeCategory === "All"
       ? projectsData.slice(0, 6)
       : projectsData.filter((p) => p.category === activeCategory).slice(0, 6);
 
-  return (
-    <section id="projects" className="bg-[#f3e8ff] px-8 lg:px-16 py-20">
-      <div className="max-w-6xl mx-auto text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: -40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl sm:text-5xl font-extrabold text-[#4b1662] inline-block relative mb-10"
-        >
-          Projects
-          <span className="absolute left-0 -bottom-2 w-full h-1 bg-[#ffbd59] rounded"></span>
-        </motion.h2>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
 
-        {/* Filter Buttons */}
-        <div className="flex justify-center gap-4 mb-10 flex-wrap">
-          {categories.map((cat) => (
-            <button
+  const itemVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 50,
+      scale: 0.9 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      },
+    },
+  };
+
+  const categoryButtonVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 150,
+        damping: 10,
+      }
+    },
+    hover: {
+      scale: 1.05,
+      y: -2,
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10,
+      },
+    },
+    tap: {
+      scale: 0.95,
+    },
+  };
+
+  const titleVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: -50,
+      rotateX: -90 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        duration: 0.8,
+      },
+    },
+  };
+
+  const backgroundVariants = {
+    initial: {
+      background: "linear-gradient(135deg, #f3e8ff 0%, #e0ccff 50%, #f3e8ff 100%)",
+    },
+    animate: {
+      background: [
+        "linear-gradient(135deg, #f3e8ff 0%, #e0ccff 50%, #f3e8ff 100%)",
+        "linear-gradient(135deg, #e0ccff 0%, #f3e8ff 50%, #e0ccff 100%)",
+        "linear-gradient(135deg, #f3e8ff 0%, #e0ccff 50%, #f3e8ff 100%)",
+      ],
+      transition: {
+        duration: 10,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  return (
+    <motion.section
+      id="projects"
+      className="relative overflow-hidden px-8 lg:px-16 py-20"
+      variants={backgroundVariants}
+      initial="initial"
+      animate="animate"
+    >
+      {/* Animated Background Elements */}
+      <motion.div
+        className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-purple-200/30 to-yellow-200/30 rounded-full blur-3xl"
+        animate={{
+          x: [0, 100, 0],
+          y: [0, -50, 0],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-yellow-200/30 to-purple-200/30 rounded-full blur-3xl"
+        animate={{
+          x: [0, -80, 0],
+          y: [0, 30, 0],
+          scale: [1, 0.8, 1],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+      />
+
+      <div className="max-w-6xl mx-auto text-center relative z-10">
+        <motion.div
+          variants={titleVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="mb-16"
+        >
+          <motion.h2
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#4b1662] inline-block relative mb-4"
+            whileHover={{
+              scale: 1.05,
+              textShadow: "0px 0px 8px rgba(75, 22, 98, 0.3)",
+            }}
+          >
+            My Projects
+            <motion.span
+              className="absolute left-0 -bottom-2 h-1 bg-gradient-to-r from-[#ffbd59] via-[#ff9a59] to-[#ffbd59] rounded-full"
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 1, delay: 0.5 }}
+            />
+          </motion.h2>
+          <motion.p
+            className="text-lg text-[#4b1662]/70 mt-4 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            Discover my journey through code, creativity, and innovation
+          </motion.p>
+        </motion.div>
+
+        {/* Enhanced Filter Buttons */}
+        <motion.div
+          className="flex justify-center gap-2 sm:gap-4 mb-12 flex-wrap"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          {categories.map((cat, index) => (
+            <motion.button
               key={cat}
+              variants={categoryButtonVariants}
+              whileHover="hover"
+              whileTap="tap"
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full font-semibold transition ${
+              className={`relative px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-300 overflow-hidden group ${
                 activeCategory === cat
-                  ? "bg-[#4b1662] text-white"
-                  : "bg-[#d6b6ff] text-[#4b1662] hover:bg-[#cfa3ff]"
+                  ? "bg-[#4b1662] text-white shadow-lg shadow-[#4b1662]/30"
+                  : "bg-white/80 backdrop-blur-sm text-[#4b1662] hover:bg-white border border-[#4b1662]/20"
               }`}
             >
-              {cat}
-            </button>
+              {/* Hover gradient background */}
+              <motion.span
+                className="absolute inset-0 bg-gradient-to-r from-[#ffbd59] to-[#ff9a59] opacity-0 group-hover:opacity-100"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* Active category background */}
+              {activeCategory === cat && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-[#4b1662] via-[#6b2c91] to-[#4b1662]"
+                  layoutId="activeCategory"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+              
+              {/* Category text */}
+              <span className="relative z-20">{cat}</span>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Projects Grid */}
-        <div className="flex flex-wrap justify-center gap-8">
-          {filteredProjects.map((project, i) => (
-            <ProjectCard key={i} project={project} />
-          ))}
-        </div>
+        {/* Enhanced Projects Grid with stagger animation */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            className="flex flex-wrap justify-center gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+          >
+            {filteredProjects.map((project, i) => (
+              <motion.div
+                key={`${activeCategory}-${project.id}`}
+                variants={itemVariants}
+                whileHover={{
+                  y: -10,
+                  scale: 1.02,
+                  transition: {
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                  },
+                }}
+                className="group"
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
-        {/* Show All Projects Button */}
+        {/* Enhanced Show All Projects Button */}
         {projectsData.length > 6 && (
-          <div className="mt-12">
-            <button onClick={() => router.push("/projects")} className="px-6 py-3 bg-[#ffbd59] text-[#4b1662] font-semibold rounded-lg hover:scale-105 transition-transform">
-              Show All Projects
-            </button>
-          </div>
+          <motion.div
+            className="mt-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <motion.button
+              onClick={() => router.push("/projects")}
+              className="relative px-8 py-4 bg-gradient-to-r from-[#ffbd59] to-[#ff9a59] text-[#4b1662] font-bold rounded-full text-lg overflow-hidden group shadow-xl shadow-[#ffbd59]/30"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 20px 40px rgba(255, 189, 89, 0.4)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-[#4b1662] to-[#6b2c91] opacity-0 group-hover:opacity-100"
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                className="relative z-10 group-hover:text-white transition-colors duration-300"
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                View All Projects
+              </motion.span>
+              
+              {/* Ripple effect */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                whileHover={{
+                  background: "radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)",
+                }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.button>
+          </motion.div>
         )}
+
+        {/* Floating Elements */}
+        <motion.div
+          className="absolute top-20 right-10 w-6 h-6 bg-[#ffbd59] rounded-full opacity-60"
+          animate={{
+            y: [0, -20, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-10 w-4 h-4 bg-[#4b1662] rounded-full opacity-40"
+          animate={{
+            y: [0, 15, 0],
+            x: [0, 10, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+        />
       </div>
-    </section>
+    </motion.section>
   );
 };
 

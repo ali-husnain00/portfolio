@@ -60,7 +60,7 @@ const ProjectCard = ({ project }) => {
 
         {/* Details */}
         <button
-          onClick={() => router.push(`/projects/${project.slug}`)}
+          onClick={() => router.push(`/projects/${project.id}`)}
           className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-[#ffbd59] text-[#4b1662] font-semibold rounded-lg hover:bg-yellow-400 transition-colors"
         >
           <Info size={18} /> View Details

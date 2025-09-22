@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -42,12 +43,12 @@ const HeroSection = () => {
         transition={{ delay: 0.6 }}
         className="mt-10 flex gap-4 flex-wrap justify-center"
       >
-        <button className="cursor-pointer px-6 py-3 rounded-full bg-[#ffbd59] text-[#4b1662] font-semibold flex items-center gap-2 hover:scale-105 transition shadow-lg">
+        <Link href="/projects"><button className="cursor-pointer px-6 py-3 rounded-full bg-[#ffbd59] text-[#4b1662] font-semibold flex items-center gap-2 hover:scale-105 transition shadow-lg">
           View Projects <ArrowRight size={20} />
-        </button>
-        <button className="cursor-pointer px-6 py-3 rounded-full bg-white/10 backdrop-blur-md text-white font-semibold hover:bg-white/20 transition">
+        </button></Link>
+        <Link href="/contact"><button className="cursor-pointer px-6 py-3 rounded-full bg-white/10 backdrop-blur-md text-white font-semibold hover:bg-white/20 transition">
           Contact Me
-        </button>
+        </button></Link>
       </motion.div>
     </section>
   );
