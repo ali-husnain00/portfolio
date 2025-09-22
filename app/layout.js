@@ -17,6 +17,9 @@ export const metadata = {
   title: "Ali Husnain | Full Stack Developer ",
   description:
     "I'm Ali Husnain, a passionate Full Stack Developer specializing in React, Next.js, Tailwind CSS, and the MERN stack. Explore my portfolio, projects, and contact me for collaborations or opportunities.",
+  verification: {
+    google: "M5Qrow6Ov4lrWUy6Uf2BtSnyyH1kyoe-hOKlzmuBjf4", 
+  },
   keywords: [
     "Ali Husnain",
     "Ali Husnain Developer",
@@ -43,7 +46,7 @@ export const metadata = {
     siteName: "Ali Husnain Portfolio",
     images: [
       {
-        url: "https://alihusnaindev.vercel.app/banner.png", 
+        url: "https://alihusnaindev.vercel.app/banner.png",
         width: 1200,
         height: 630,
         alt: "Ali Husnain - Full Stack Developer Portfolio",
