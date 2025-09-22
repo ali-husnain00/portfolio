@@ -43,18 +43,6 @@ const ProjectDetailsPage = ({ params }) => {
     }
   }, [params]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-[#f3e8ff] to-[#e0ccff] flex items-center justify-center">
-        <motion.div
-          className="w-16 h-16 border-4 border-[#4b1662] border-t-[#ffbd59] rounded-full"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
-    );
-  }
-
   if (!project) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#f3e8ff] to-[#e0ccff] flex items-center justify-center">
