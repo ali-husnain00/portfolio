@@ -92,7 +92,7 @@ const BackendNoteSlider = () => {
                   Note
                 </p>
                 <p className="text-xs sm:text-sm leading-snug">
-                  The backend of full stack projects in this portfolio is hosted on free platforms, so initial load may take some time. Functionality and code quality are fully implemented.
+                  The backend of full stack projects in this portfolio is hosted on free platforms, so initial load may take a while. Functionality and code quality are fully implemented.
                 </p>
               </div>
             </div>
