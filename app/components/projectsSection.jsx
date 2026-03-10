@@ -4,32 +4,33 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import ProjectCard from "./projectCard";
+import BackendNoteSlider from "./BackendNoteSlider";
 
 export const projectsData = [
-  {
-    id: 1,
-    title: "E-BooksShelf (E-Library)",
-    description:
-      "E-BooksShelf is a responsive React.js web app that lets users search, browse, and preview books using the Google Books API. It features category filters, detailed previews, and external book links, all managed with Context API.",
-    techStack: ["React Js", "CSS", "Google Books API"],
-    developer: "Ali Husnain",
-    image: "/project1.png",
-    githubLink: "https://github.com/ali-husnain00/E-library",
-    liveLink: "https://ebooksshelf.netlify.app/",
-    category: "Frontend",
-  },
-  {
-    id: 2,
-    title: "Ali Mart",
-    description:
-      "Ali Mart is an online shopping platform crafted to provide customers with a smooth and enjoyable shopping experience. The website showcases a diverse range of products, intuitive navigation, and secure payment options, ensuring a hassle-free journey from browsing to checkout.",
-    techStack: ["React Js", "CSS"],
-    developer: "Ali Husnain",
-    image: "/project3.png",
-    githubLink: "https://github.com/ali-husnain00/ali-mart",
-    liveLink: "https://alimart.netlify.app/",
-    category: "Frontend",
-  },
+  // {
+  //   id: 1,
+  //   title: "E-BooksShelf (E-Library)",
+  //   description:
+  //     "E-BooksShelf is a responsive React.js web app that lets users search, browse, and preview books using the Google Books API. It features category filters, detailed previews, and external book links, all managed with Context API.",
+  //   techStack: ["React Js", "CSS", "Google Books API"],
+  //   developer: "Ali Husnain",
+  //   image: "/project1.png",
+  //   githubLink: "https://github.com/ali-husnain00/E-library",
+  //   liveLink: "https://ebooksshelf.netlify.app/",
+  //   category: "Frontend",
+  // },
+  // {
+  //   id: 2,
+  //   title: "Ali Mart",
+  //   description:
+  //     "Ali Mart is an online shopping platform crafted to provide customers with a smooth and enjoyable shopping experience. The website showcases a diverse range of products, intuitive navigation, and secure payment options, ensuring a hassle-free journey from browsing to checkout.",
+  //   techStack: ["React Js", "CSS"],
+  //   developer: "Ali Husnain",
+  //   image: "/project3.png",
+  //   githubLink: "https://github.com/ali-husnain00/ali-mart",
+  //   liveLink: "https://alimart.netlify.app/",
+  //   category: "Frontend",
+  // },
   {
     id: 3,
     title: "EvoChat",
@@ -42,18 +43,18 @@ export const projectsData = [
     liveLink: "https://evochat1.netlify.app/",
     category: "Fullstack",
   },
-  {
-    id: 4,
-    title: "Codask",
-    description:
-      "Codask is a real-time collaborative code editor with integrated project and task management. Users can create projects, invite team members, chat in groups, and collaboratively edit code using socket.io. Team leads assign tasks and track project progress seamlessly.",
-    techStack: ["React Js", "Tailwind CSS", "Node Js", "Express Js", "MongoDB", "Socket.io"],
-    developer: "Ali Husnain",
-    image: "/project5.png",
-    githubLink: "https://github.com/ali-husnain00/Codask",
-    liveLink: "https://codask.netlify.app/",
-    category: "Fullstack",
-  },
+  // {
+  //   id: 4,
+  //   title: "Codask",
+  //   description:
+  //     "Codask is a real-time collaborative code editor with integrated project and task management. Users can create projects, invite team members, chat in groups, and collaboratively edit code using socket.io. Team leads assign tasks and track project progress seamlessly.",
+  //   techStack: ["React Js", "Tailwind CSS", "Node Js", "Express Js", "MongoDB", "Socket.io"],
+  //   developer: "Ali Husnain",
+  //   image: "/project5.png",
+  //   githubLink: "https://github.com/ali-husnain00/Codask",
+  //   liveLink: "https://codask.netlify.app/",
+  //   category: "Fullstack",
+  // },
   {
     id: 5,
     title: "My Portfolio",
@@ -103,7 +104,7 @@ const ProjectsSection = () => {
 
   const filteredProjects =
     activeCategory === "All"
-      ? projectsData.slice(0, 6)
+      ? projectsData
       : projectsData.filter((p) => p.category === activeCategory).slice(0, 6);
 
   const containerVariants = {
@@ -418,6 +419,8 @@ const ProjectsSection = () => {
             delay: 1,
           }}
         />
+
+        <BackendNoteSlider />
       </div>
     </motion.section>
   );

@@ -1,6 +1,6 @@
 import ProjectsSection from "../components/projectsSection";
 
-const page = () => {
+const Page = () => {
   return (
     <div className="mt-10">
       <ProjectsSection />
@@ -8,4 +8,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
